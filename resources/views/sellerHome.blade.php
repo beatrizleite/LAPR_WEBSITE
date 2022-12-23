@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Dashboard') }}</div>
 
                 <div class="card-body">
-                    You are a normal user!
+                    You are a seller!
                 </div>
             </div>
         </div>
