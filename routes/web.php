@@ -25,6 +25,8 @@ Auth::routes();
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('logout');
+
 Route::get('/profile', [HomeController::class, 'userProfile'])->name('user.home');
 
 Route::get('/seller', [HomeController::class, 'sellerHome'])->name('seller.home')->middleware('is_seller');

@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -61,4 +62,13 @@ class LoginController extends Controller
             ->with('error', "Email and/or password are wrong.");
         }
     }
+
+    
+    public function logout(Request $request) {
+        Auth::logout();
+        Session()->flush();
+
+        return redirect()->route('home');
+    }
+    
 }
