@@ -32,11 +32,13 @@ class ItemFactory extends Factory
             ->get(['id']),
             FILTER_SANITIZE_NUMBER_INT
         );
+        $image = Arr::random(array('1.jpg', '2.jpg', '3.jpg', '4.jpg'));
         $price = mt_rand(0, 5000 * pow(10, 2)) / pow(10, 2);
         return [
             'name' => fake()->text(10),
             'category' => $category,
             'vendor' => $userid,
+            'image' => $image,
             'price' => $price,
         ];
     }

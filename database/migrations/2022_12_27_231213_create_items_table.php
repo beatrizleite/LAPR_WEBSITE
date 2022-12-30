@@ -22,6 +22,7 @@ return new class extends Migration
                 ->onDelete('cascade');
             $table->string('name');
             $table->string('category');
+            $table->string('image');
             $table->float('price');
             $table->timestamps();
         });

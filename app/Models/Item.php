@@ -22,6 +22,7 @@ class Item extends Authenticatable
         'vendor',
         'name',
         'category',
+        'image',
         'price'
     ];
 }
