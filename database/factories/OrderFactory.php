@@ -1,5 +1,4 @@
 <?php
-
 namespace Database\Factories;
 
 use Illuminate\Support\Arr;
@@ -19,17 +18,39 @@ class OrderFactory extends Factory
      */
     public function definition()
     {
-        $vendorid = filter_var(DB::table('users')->where('type', '=', '1')
-        ->inRandomOrder()
-        ->limit(1)
-        ->get(['id']), FILTER_SANITIZE_NUMBER_INT);
-        $buyerid = filter_var(DB::table('users')->where('type', '=', '0')
-        ->inRandomOrder()
-        ->limit(1)
-        ->get(['id']), FILTER_SANITIZE_NUMBER_INT);
+        
+        $buyerid = filter_var(
+            DB::table('users')
+            ->where('type', '=', '0')
+            ->inRandomOrder()
+            ->limit(1)
+            ->get(['id']),
+            FILTER_SANITIZE_NUMBER_INT
+        );
+        do {
+            $vendorid = filter_var(
+                DB::table('users')
+                ->where('type', '=', '1')
+                ->inRandomOrder()
+                ->limit(1)
+                ->get(['id']),
+                FILTER_SANITIZE_NUMBER_INT
+            );
+            
+            $itemid = filter_var(
+                DB::table('items')
+                    ->where('vendor', '=', $vendorid)
+                    ->inRandomOrder()
+                    ->limit(1)
+                    ->get(['id']),
+                FILTER_SANITIZE_NUMBER_INT
+            );
+        } while ($itemid == null);
+        
         return [
             'vendor' => $vendorid,
             'buyer' => $buyerid,
+            'item' => $itemid,
         ];
     }
 
