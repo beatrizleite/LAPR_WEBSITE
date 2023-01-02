@@ -1,6 +1,14 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
+<?php use App\Http\Controllers\ProductController;
+
+$total = 0;
+if (Auth::check()) {
+    $total = ProductController::cartItem();
+}
+?>
+
 <head>
 
     <meta charset="utf-8">
@@ -98,8 +106,7 @@
                     </form>
                 </li>
                 <li class="nav-item">
-                    <form action="/cart" class="d-flex" method="post">
-                        @csrf
+                    <form action="/cart" class="d-flex" method="get">
                         <button class="btn btn-outline-light" type="submit" style="white-space: nowrap;">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-cart" viewBox="0 0 16 16">
@@ -111,11 +118,10 @@
                             0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7
                             1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
                             </svg>
-                            <span>0</span>
+                            <span>{{ $total }}</span>
                         </button>
                     </form>
                 </li>
-
         </div>
         </ul>
     </nav>
