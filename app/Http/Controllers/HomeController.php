@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Item;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -25,8 +26,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $data = Item::inRandomOrder()->limit(6)->get();
-        return view('home', ['items'=>$data]);
+        $data = Category::inRandomOrder()->get();
+        return view('home', ['categories'=>$data]);
     }
 
     public function sellerHome()

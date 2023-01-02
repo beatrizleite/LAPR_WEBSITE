@@ -36,21 +36,28 @@ class OrderFactory extends Factory
                 ->get(['id']),
                 FILTER_SANITIZE_NUMBER_INT
             );
+            $rdm = random_int(1, 5);
+            $a = "";
+            for ($i=0; $i < $rdm; $i++) {
+                $itemid = filter_var(
+                    DB::table('items')
+                        ->where('vendor', '=', $vendorid)
+                        ->inRandomOrder()
+                        ->limit(1)
+                        ->get(['id']),
+                    FILTER_SANITIZE_NUMBER_INT
+                );
+                $a .= $itemid;
+                $a .= ';';
+            }
             
-            $itemid = filter_var(
-                DB::table('items')
-                    ->where('vendor', '=', $vendorid)
-                    ->inRandomOrder()
-                    ->limit(1)
-                    ->get(['id']),
-                FILTER_SANITIZE_NUMBER_INT
-            );
         } while ($itemid == null);
         
         return [
             'vendor' => $vendorid,
             'buyer' => $buyerid,
-            'item' => $itemid,
+            'items' => $a,
+            'num_of_items' => $rdm,
         ];
     }
 

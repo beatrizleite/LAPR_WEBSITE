@@ -17,7 +17,8 @@ return new class extends Migration
             $table->id('id');
             $table->integer('vendor')->unsigned();
             $table->integer('buyer')->unsigned();
-            $table->integer('item')->unsigned();
+            $table->longText('items')->unsigned();
+            $table->integer('num_of_items');
             $table->timestamps();
         });
     }
