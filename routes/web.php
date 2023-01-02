@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,3 +33,5 @@ Route::get('/profile', [HomeController::class, 'userProfile'])->name('user.home'
 Route::get('/seller', [HomeController::class, 'sellerHome'])->name('seller.home')->middleware('is_seller');
 
 Route::get('/admin/home', [HomeController::class, 'adminHome'])->name('admin.home')->middleware('is_admin');
+
+Route::get("/detail/{id}", [ProductController::class, 'detail']);

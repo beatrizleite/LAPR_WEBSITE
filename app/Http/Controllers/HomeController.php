@@ -27,7 +27,12 @@ class HomeController extends Controller
     public function index()
     {
         $data = Category::inRandomOrder()->get();
-        return view('home', ['categories'=>$data]);
+        $items = Item::inRandomOrder()->get();
+        for ($i=0; $i < count($data); $i++) {
+            $images[] = Item::where('category', '=', $data[0])
+            ->get();
+        }
+        return view('home', ['categories'=>$data, 'images'=>$images, 'items'=>$items]);
     }
 
     public function sellerHome()
