@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('category');
             $table->string('image');
             $table->float('price');
+            $table->longText('description');
             $table->timestamps();
         });
     }

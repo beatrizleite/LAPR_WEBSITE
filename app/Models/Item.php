@@ -23,6 +23,7 @@ class Item extends Authenticatable
         'name',
         'category',
         'image',
-        'price'
+        'price',
+        'description'
     ];
 }

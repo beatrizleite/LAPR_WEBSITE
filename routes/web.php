@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,3 +36,7 @@ Route::get('/seller', [HomeController::class, 'sellerHome'])->name('seller.home'
 Route::get('/admin/home', [HomeController::class, 'adminHome'])->name('admin.home')->middleware('is_admin');
 
 Route::get("/detail/{id}", [ProductController::class, 'detail']);
+
+Route::get("/search", [ProductController::class, 'search'])->name('search');
+
+Route::post("/cart", [ProductController::class, 'cart'])->name('cart');

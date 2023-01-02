@@ -2,18 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use App\Models\Item;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
     
     function detail($id)
     {
-        return Item::find($id);
+        $data = Item::find($id);
+        return view('detail', ['item' => $data]);
     }
 
-
+    function search(Request $request)
+    {
+        $data = Item::where('name', 'ilike', '%' . $request->input('query') . '%')->get();
+        return view('search', ['items' => $data]);
+    }
 }

@@ -93,9 +93,9 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <form class="d-flex">
-                        <input class="form-control me-2" type="text" placeholder="Search">
-                        <button class="btn btn-outline-light" type="button" style="margin-right: 10px;">Search</button>
+                    <form action="/search" class="d-flex">
+                        <input class="form-control me-2" type="text" name="query" placeholder="Search">
+                        <button class="btn btn-outline-light" type="submit" style="margin-right: 10px;">Search</button>
                     </form>
                 </li>
                 <li class="nav-item">
