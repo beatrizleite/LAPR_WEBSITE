@@ -35,7 +35,6 @@
             <div class="collapse navbar-collapse" id="mynavbar">
                 @if (Route::has('login'))
                     @auth
-
                         <ul class="navbar-nav me-auto" style="margin-left: 10px; margin-right: 10px;">
                             <li class="nav-item dropdown">
                                 <a href="#" id="navbarDropdown" class="nav-link dropdown-toggle" role="button"
@@ -99,7 +98,8 @@
                     </form>
                 </li>
                 <li class="nav-item">
-                    <form action="">
+                    <form action="/cart" class="d-flex" method="post">
+                        @csrf
                         <button class="btn btn-outline-light" type="submit" style="white-space: nowrap;">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-cart" viewBox="0 0 16 16">

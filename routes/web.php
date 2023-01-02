@@ -39,4 +39,7 @@ Route::get("/detail/{id}", [ProductController::class, 'detail']);
 
 Route::get("/search", [ProductController::class, 'search'])->name('search');
 
-Route::post("/cart", [ProductController::class, 'cart'])->name('cart');
+//Route::post("/cart", [ProductController::class, 'cart']);
+
+Route::post("/addToCart", [ProductController::class, 'addToCart'])->name('addToCart');
+
