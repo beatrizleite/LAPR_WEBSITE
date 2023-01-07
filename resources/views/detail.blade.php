@@ -3,7 +3,7 @@
 @section('content')
     <div class="container" style="margin-top: 75px;">
         <div class="row">
-            <a href="/">&lt; Go back</a>
+            <a href="{{url()->previous()}}">&lt; Go back</a>
 
             <div class="col-sm-6">
                 <img width="70%" class="img-fluid img-thumbnail" src="{{ asset('storage/images/' . $item->image) }}"

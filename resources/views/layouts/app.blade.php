@@ -44,6 +44,32 @@ if (Auth::check()) {
                 @if (Route::has('login'))
                     @auth
                         <ul class="navbar-nav me-auto" style="margin-left: 10px; margin-right: 10px;">
+                            @if (Auth::user()->type == 2)
+                            <li class="nav-item dropdown">
+                                <a href="#" id="navbarDropdown" class="nav-link dropdown-toggle" role="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">{{ Auth::user()->name }}</a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li class="nav-link">
+                                        <a href="{{ route('logout') }}" class="dropdown-item">
+                                            Logout
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('admin.allUsers')}}" class="nav-link">All Users</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('admin.allCategories')}}" class="nav-link">All Categories</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('admin.allItems')}}" class="nav-link">All Items</a>
+                            </li>
+                            
+                            @elseif (Auth::user()->type == 1)
+                            <li class="nav-item">
+                            </li>
+                            @else
                             <li class="nav-item dropdown">
                                 <a href="#" id="navbarDropdown" class="nav-link dropdown-toggle" role="button"
                                     data-bs-toggle="dropdown" aria-expanded="false">{{ Auth::user()->name }}</a>
@@ -59,6 +85,7 @@ if (Auth::check()) {
                                 </ul>
                             </li>
                         </ul>
+                        @endif
                     @else
                         <ul class="navbar-nav me-auto">
                             <li class="nav-link">

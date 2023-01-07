@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\CartController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,7 +39,16 @@ Route::get("/detail/{id}", [ProductController::class, 'detail']);
 
 Route::get("/search", [ProductController::class, 'search'])->name('search');
 
-//Route::post("/cart", [ProductController::class, 'cart']);
+Route::get("/cart", [ProductController::class, 'cart'])->name('cart');
 
 Route::post("/addToCart", [ProductController::class, 'addToCart'])->name('addToCart');
+
+Route::get("/removeFromCart/{id}", [ProductController::class, 'removeFromCart'])->name('remove_cart');
+
+Route::get("/admin/allUsers", [AdminController::class, 'allUsers'])->name('admin.allUsers')->middleware('is_admin');
+
+Route::get("/admin/allCategories", [AdminController::class, 'allCategories'])
+->name('admin.allCategories')->middleware('is_admin');
+
+Route::get("/admin/allItems", [AdminController::class, 'allItems'])->name('admin.allItems')->middleware('is_admin');
 
