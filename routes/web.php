@@ -52,3 +52,8 @@ Route::get("/admin/allCategories", [AdminController::class, 'allCategories'])
 
 Route::get("/admin/allItems", [AdminController::class, 'allItems'])->name('admin.allItems')->middleware('is_admin');
 
+Route::post("admin/addCat", [AdminController::class, 'addCat'])->name('admin.addCat');
+
+Route::get("admin/deleteCat/{id}", [AdminController::class, 'deleteCat'])->name('admin.deleteCat');
+
+Route::get("admin/editCat/{id}", [AdminController::class, 'editCat'])->name('admin.editCat');
