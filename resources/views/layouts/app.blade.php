@@ -125,17 +125,16 @@ if (Auth::check()) {
                         data-bs-toggle="dropdown" style="margin-right: 10px;">Shop</a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="#" class="dropdown-item"> All Products</a>
+                            <a href="{{route('allproducts')}}" class="dropdown-item"> All Products</a>
                         </li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
+                        
                         <li>
-                            <a href="#" class="dropdown-item"> Popular items</a>
+                            <a href="{{route('categories')}}" class="dropdown-item"> Categories</a>
                         </li>
-                        <li>
-                            <a href="#" class="dropdown-item"> New Arrivals</a>
-                        </li>
+                        
                     </ul>
                 </li>
                 <li class="nav-item">

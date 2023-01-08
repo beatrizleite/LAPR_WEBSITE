@@ -13,18 +13,19 @@ use Illuminate\Support\Facades\Session;
 class ProductController extends Controller
 {
 
-    function detail($id)
+    public function detail($id)
     {
         $data = Item::find($id);
         return view('detail', ['item' => $data]);
     }
 
-    function search(Request $request)
+    public function search(Request $request)
     {
         $data = Item::where('name', 'ilike', '%' . $request->input('query') . '%')->get();
         return view('search', ['items' => $data]);
     }
-    function addToCart(Request $request)
+
+    public function addToCart(Request $request)
     {
         if (Auth::check()) {
             $cart = new Cart;
@@ -36,13 +37,13 @@ class ProductController extends Controller
             return redirect('login')->with('error', "You're not logged in!");
         }
     }
-    static function cartItem()
+    public static function cartItem()
     {
         $userid = Auth::user()->id;
         return Cart::where('user_id', $userid)->count();
     }
 
-    function cart()
+    public function cart()
     {
         if (Auth::check()) {
             $userid = Auth::user()->id;
@@ -57,7 +58,7 @@ class ProductController extends Controller
         }
     }
 
-    function removeFromCart($id)
+    public function removeFromCart($id)
     {
         Cart::destroy($id);
         return redirect('');

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\SellerController;
 
 /*
@@ -32,7 +33,7 @@ Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout')->name
 
 Route::get('/profile', [HomeController::class, 'userProfile'])->name('user.home');
 
-Route::get("/detail/{id}", [ProductController::class, 'detail']);
+Route::get("/detail/{id}", [ProductController::class, 'detail'])->name('detail');
 
 Route::get("/search", [ProductController::class, 'search'])->name('search');
 
@@ -90,3 +91,13 @@ Route::middleware(['auth', 'is_seller'])->group(function () {
     Route::post("seller/addItem", [SellerController::class, 'addItem'])->name('seller.addItem');
 
 });
+
+Route::get("checkout", [CheckoutController::class, 'index'])->name('checkout');
+
+Route::post("placeOrder", [CheckoutController::class, 'placeOrder'])->name('placeOrder');
+
+Route::get("categories", [HomeController::class, 'categories'])->name('categories');
+
+Route::get("categories/{id}", [HomeController::class, 'categoriesid'])->name('categoriesid');
+
+Route::get("allProducts", [HomeController::class, 'allproducts'])->name('allproducts');

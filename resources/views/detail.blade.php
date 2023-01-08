@@ -17,9 +17,8 @@
                 <h3>Price: {{ $item->price }}€</h3>
                 <hr>
                 <h4>Description: {{ $item->description }}</h4>
-                <form action="{{route('addToCart')}}" method="get">
+                <form action="{{route('addToCart')}}" method="post">
                     @csrf
-                    
                     <input type="hidden" name="item_id" value={{ $item->id }}>
                     <button type="submit" class="btn btn-primary">Add to Cart</button>
                 </form>

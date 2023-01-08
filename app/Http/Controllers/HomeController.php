@@ -35,14 +35,9 @@ class HomeController extends Controller
             $usertype = -1;
         }
         $data = Category::inRandomOrder()->get();
-        $items = Item::inRandomOrder()->get();
-        for ($i=0; $i < count($data); $i++) {
-            $images[] = Item::where('category', '=', $data[0])
-            ->get();
-        }
+        $items = Item::inRandomOrder()->paginate(3);
         return view('home', [
             'categories'=>$data,
-            'images'=>$images,
             'items'=>$items,
             'user_type'=>$usertype
         ]);
@@ -61,5 +56,21 @@ class HomeController extends Controller
     public function userProfile()
     {
         return view('userProfile');
+    }
+
+    public function categories(){
+        $cats = Category::all();
+        return view('categories', compact('cats'));
+    }
+
+    public function categoriesid($id){
+        $cat = Category::where('id', '=', $id)->value('category');
+        $items = Item::where('category', '=', $cat)->paginate(9);
+        return view('categoriesid', compact('items'));
+    }
+
+    public function allproducts(){
+        $items = Item::paginate(9);
+        return view('allproducts', compact('items'));
     }
 }
