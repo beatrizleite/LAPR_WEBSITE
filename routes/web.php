@@ -61,4 +61,10 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
     
     Route::put("admin/updateCat/{id}", [AdminController::class, 'updateCat'])->name('admin.updateCat');
 
+    Route::get("admin/deleteItem/{id}", [AdminController::class, 'deleteItem'])->name('admin.deleteItem');
+    
+    Route::get("admin/editItem/{id}", [AdminController::class, 'editItem'])->name('admin.editItem');
+    
+    Route::put("admin/updateItem/{id}", [AdminController::class, 'updateItem'])->name('admin.updateItem');
+
 });

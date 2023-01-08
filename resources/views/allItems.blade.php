@@ -22,8 +22,20 @@
                     <td>{{ $item->name }}</td>
                     <td>{{ $item->category }}</td>
                     <td>{{ $item->vendor }}</td>
-                    <td><button class="btn-danger">Delete</button></td>
-                    <td><button class="btn-warning">Edit</button></td>
+                    <td>
+                    <form action="{{route('admin.deleteItem', ['id' => $item->id])}}" method="get">
+                        @csrf
+                        <button class="btn btn-danger">Delete</button>
+                    </form>
+                    </td>
+                    <form action="{{route('admin.editItem', ['id' => $item->id])}}" method="get">
+                        @csrf
+                        <td>
+                            <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#edit">
+                                Edit
+                            </button>
+                        </td>
+                    </form>
                 </tr>
             @endforeach
         </tbody>

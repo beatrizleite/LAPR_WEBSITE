@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Item;
 use App\Models\User;
 use App\Models\Category;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 
 class AdminController extends Controller
@@ -63,4 +64,30 @@ class AdminController extends Controller
         $category->update();
         return redirect('admin/allCategories')->with('status', 'Category edited successfully!');
     }
+
+    public function deleteItem($id)
+    {
+        $item = Item::find($id);
+        $item->delete();
+        return redirect('admin/allItems')->with('status', 'Category deleted successfully!');
+    }
+
+    public function editItem($id)
+    {
+        $item = Item::find($id);
+        $cats = Category::all();
+        return view('editItem', compact('item', 'cats'));
+    }
+
+    public function updateItem(Request $request, $id)
+    {
+        $item = Item::find($id);
+        $item->name = $request->input('name');
+        $item->category = $request->input('category');
+        $item->price = $request->input('price');
+        $item->description = $request->input('description');
+        $item->update();
+        return redirect('admin/allItems')->with('status', 'Category edited successfully!');
+    }
+
 }
