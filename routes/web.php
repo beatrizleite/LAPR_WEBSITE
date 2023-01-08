@@ -67,4 +67,12 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
     
     Route::put("admin/updateItem/{id}", [AdminController::class, 'updateItem'])->name('admin.updateItem');
 
+    Route::post("admin/addUser", [AdminController::class, 'addUser'])->name('admin.addUser');
+
+    Route::get("admin/deleteUser/{id}", [AdminController::class, 'deleteUser'])->name('admin.deleteUser');
+    
+    Route::get("admin/editUser/{id}", [AdminController::class, 'editUser'])->name('admin.editUser');
+    
+    Route::put("admin/updateUser/{id}", [AdminController::class, 'updateUser'])->name('admin.updateUser');
+
 });

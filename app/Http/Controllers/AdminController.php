@@ -5,9 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Item;
 use App\Models\User;
 use App\Models\Category;
-use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 
 
 class AdminController extends Controller
@@ -88,6 +89,39 @@ class AdminController extends Controller
         $item->description = $request->input('description');
         $item->update();
         return redirect('admin/allItems')->with('status', 'Category edited successfully!');
+    }
+
+    public function addUser(Request $request)
+    {
+        $user = new User();
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->password = Hash::make($request->input('password'));
+        $user->type = $request->input('type');
+        $user->save();
+        return redirect()->back()->with('status', 'User added successfully!');
+    }
+
+    public function deleteUser($id)
+    {
+        $user = User::find($id);
+        $user->delete();
+        return redirect('admin/allUsers')->with('status', 'User deleted successfully!');
+    }
+
+    public function editUser($id)
+    {
+        $user = User::find($id);
+        return view('editUser', compact('user'));
+    }
+
+    public function updateUser(Request $request, $id)
+    {
+        $user = User::find($id);
+        $user->name = $request->input('name');
+        $user->type = $request->input('type');
+        $user->update();
+        return redirect('admin/allUsers')->with('status', 'User edited successfully!');
     }
 
 }
