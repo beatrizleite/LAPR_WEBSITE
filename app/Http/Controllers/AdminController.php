@@ -18,21 +18,21 @@ class AdminController extends Controller
     {
         $id = Auth::user()->id;
         $allusers = User::where('id', '!=', $id)->orderBy('id', 'asc')->paginate(6);
-        return view('allUsers', [
+        return view('admin.allUsers', [
             'users' => $allusers
         ]);
     }
 
     public function allCategories()
     {
-        return view('allCategories', [
+        return view('admin.allCategories', [
             'cats' => Category::orderBy('id', 'asc')->paginate(6)
         ]);
     }
     
     public function allItems()
     {
-        return view('allItems', [
+        return view('admin.allItems', [
             'items' => Item::orderBy('created_at', 'desc')->paginate(6)
         ]);
     }
@@ -55,7 +55,7 @@ class AdminController extends Controller
     public function editCat($id)
     {
         $cat = Category::find($id);
-        return view('editCat', compact('cat'));
+        return view('admin.editCat', compact('cat'));
     }
 
     public function updateCat(Request $request, $id)
@@ -70,14 +70,14 @@ class AdminController extends Controller
     {
         $item = Item::find($id);
         $item->delete();
-        return redirect('admin/allItems')->with('status', 'Category deleted successfully!');
+        return redirect('admin/allItems')->with('status', 'Item deleted successfully!');
     }
 
     public function editItem($id)
     {
         $item = Item::find($id);
         $cats = Category::all();
-        return view('editItem', compact('item', 'cats'));
+        return view('admin.editItem', compact('item', 'cats'));
     }
 
     public function updateItem(Request $request, $id)
@@ -88,7 +88,7 @@ class AdminController extends Controller
         $item->price = $request->input('price');
         $item->description = $request->input('description');
         $item->update();
-        return redirect('admin/allItems')->with('status', 'Category edited successfully!');
+        return redirect('admin/allItems')->with('status', 'Item edited successfully!');
     }
 
     public function addUser(Request $request)
@@ -112,7 +112,7 @@ class AdminController extends Controller
     public function editUser($id)
     {
         $user = User::find($id);
-        return view('editUser', compact('user'));
+        return view('admin.editUser', compact('user'));
     }
 
     public function updateUser(Request $request, $id)

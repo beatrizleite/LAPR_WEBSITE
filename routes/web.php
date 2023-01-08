@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\SellerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,8 +32,6 @@ Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout')->name
 
 Route::get('/profile', [HomeController::class, 'userProfile'])->name('user.home');
 
-Route::get('/seller', [HomeController::class, 'sellerHome'])->name('seller.home')->middleware('is_seller');
-
 Route::get("/detail/{id}", [ProductController::class, 'detail']);
 
 Route::get("/search", [ProductController::class, 'search'])->name('search');
@@ -45,13 +44,13 @@ Route::get("/removeFromCart/{id}", [ProductController::class, 'removeFromCart'])
 
 
 Route::middleware(['auth', 'is_admin'])->group(function () {
-    Route::get('/admin/home', [HomeController::class, 'adminHome'])->name('admin.home');
+    Route::get('admin/home', [HomeController::class, 'adminHome'])->name('admin.home');
 
-    Route::get("/admin/allUsers", [AdminController::class, 'allUsers'])->name('admin.allUsers');
+    Route::get("admin/allUsers", [AdminController::class, 'allUsers'])->name('admin.allUsers');
 
-    Route::get("/admin/allCategories", [AdminController::class, 'allCategories'])->name('admin.allCategories');
+    Route::get("admin/allCategories", [AdminController::class, 'allCategories'])->name('admin.allCategories');
 
-    Route::get("/admin/allItems", [AdminController::class, 'allItems'])->name('admin.allItems');
+    Route::get("admin/allItems", [AdminController::class, 'allItems'])->name('admin.allItems');
     
     Route::post("admin/addCat", [AdminController::class, 'addCat'])->name('admin.addCat');
     
@@ -74,5 +73,20 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
     Route::get("admin/editUser/{id}", [AdminController::class, 'editUser'])->name('admin.editUser');
     
     Route::put("admin/updateUser/{id}", [AdminController::class, 'updateUser'])->name('admin.updateUser');
+
+});
+
+Route::middleware(['auth', 'is_seller'])->group(function () {
+    Route::get('seller/home', [HomeController::class, 'sellerHome'])->name('seller.home');
+
+    Route::get("seller/allItems", [SellerController::class, 'allItems'])->name('seller.allItems');
+
+    Route::get("seller/deleteItem/{id}", [SellerController::class, 'deleteItem'])->name('seller.deleteItem');
+
+    Route::get("seller/editItem/{id}", [SellerController::class, 'editItem'])->name('seller.editItem');
+
+    Route::put("seller/updateItem/{id}", [SellerController::class, 'updateItem'])->name('seller.updateItem');
+
+    Route::post("seller/addItem", [SellerController::class, 'addItem'])->name('seller.addItem');
 
 });

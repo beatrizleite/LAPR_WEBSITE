@@ -70,7 +70,8 @@
                         <h3>
                             <a href="detail/{{$item['id']}}"><b>{{$item->name}}</b></a>
                         </h3>
-                            <img alt="{{$item->name}}" src="{{asset('storage/images/'.$item->image)}}">
+                            <img alt="{{$item->name}}" src="{{asset('storage/images/'.$item->image)}}"
+                            style="object-fit:fill; width:250px; height:200px; border: solid 1px #CCC">
                         <hr>
                     </div>
                 @endforeach

@@ -20,7 +20,7 @@ if (Auth::check()) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-    <title>{{ config('app.name', 'E-commerce') }}</title>
+    <title>E-commerce</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -67,7 +67,19 @@ if (Auth::check()) {
                             </li>
                             
                             @elseif (Auth::user()->type == 1)
+                            <li class="nav-item dropdown">
+                                <a href="#" id="navbarDropdown" class="nav-link dropdown-toggle" role="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">{{ Auth::user()->name }}</a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li class="nav-link">
+                                        <a href="{{ route('logout') }}" class="dropdown-item">
+                                            Logout
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
                             <li class="nav-item">
+                                <a href="{{route('seller.allItems')}}" class="nav-link">All Items</a>
                             </li>
                             @else
                             <li class="nav-item dropdown">
