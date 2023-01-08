@@ -19,8 +19,7 @@
                     <h4>Category's name</h4>
                     <form action="{{route('admin.addCat')}}" method="POST">
                         @csrf
-                        <input type="text" name="category"><br>
-                        <br>
+                        <input type="text" name="category"><br><br>
                         <button type="submit" class="btn btn-primary">Save</button>
                     </form>
                 </div>
@@ -46,7 +45,14 @@
                     <td>
                     <button class="btn btn-danger">Delete</button>
                     </td>
-                    <td><button class="btn btn-warning">Edit</button></td>
+                    <form action="{{route('admin.editCat', ['id' => $cat->id])}}" method="get">
+                        @csrf
+                        <td>
+                            <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#edit">
+                                Edit
+                            </button>
+                        </td>
+                    </form>
                 </tr>
             @endforeach
         </tbody>

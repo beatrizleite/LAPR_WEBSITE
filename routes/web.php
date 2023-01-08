@@ -33,8 +33,6 @@ Route::get('/profile', [HomeController::class, 'userProfile'])->name('user.home'
 
 Route::get('/seller', [HomeController::class, 'sellerHome'])->name('seller.home')->middleware('is_seller');
 
-Route::get('/admin/home', [HomeController::class, 'adminHome'])->name('admin.home')->middleware('is_admin');
-
 Route::get("/detail/{id}", [ProductController::class, 'detail']);
 
 Route::get("/search", [ProductController::class, 'search'])->name('search');
@@ -45,15 +43,21 @@ Route::post("/addToCart", [ProductController::class, 'addToCart'])->name('addToC
 
 Route::get("/removeFromCart/{id}", [ProductController::class, 'removeFromCart'])->name('remove_cart');
 
-Route::get("/admin/allUsers", [AdminController::class, 'allUsers'])->name('admin.allUsers')->middleware('is_admin');
 
-Route::get("/admin/allCategories", [AdminController::class, 'allCategories'])
-->name('admin.allCategories')->middleware('is_admin');
+Route::middleware(['auth', 'is_admin'])->group(function () {
+    Route::get('/admin/home', [HomeController::class, 'adminHome'])->name('admin.home');
 
-Route::get("/admin/allItems", [AdminController::class, 'allItems'])->name('admin.allItems')->middleware('is_admin');
+    Route::get("/admin/allUsers", [AdminController::class, 'allUsers'])->name('admin.allUsers');
 
-Route::post("admin/addCat", [AdminController::class, 'addCat'])->name('admin.addCat');
+    Route::get("/admin/allCategories", [AdminController::class, 'allCategories'])->name('admin.allCategories');
 
-Route::get("admin/deleteCat/{id}", [AdminController::class, 'deleteCat'])->name('admin.deleteCat');
-
-Route::get("admin/editCat/{id}", [AdminController::class, 'editCat'])->name('admin.editCat');
+    Route::get("/admin/allItems", [AdminController::class, 'allItems'])->name('admin.allItems');
+    
+    Route::post("admin/addCat", [AdminController::class, 'addCat'])->name('admin.addCat');
+    
+    Route::get("admin/deleteCat/{id}", [AdminController::class, 'deleteCat'])->name('admin.deleteCat');
+    
+    Route::get("admin/editCat/{id}", [AdminController::class, 'editCat'])->name('admin.editCat');
+    
+    Route::put("admin/updateCat/{id}", [AdminController::class, 'updateCat'])->name('admin.updateCat');
+});

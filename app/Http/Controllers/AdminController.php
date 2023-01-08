@@ -37,9 +37,7 @@ class AdminController extends Controller
 
     public function addCat(Request $request)
     {
-        $lastid = Category::getPdo()->lastInsertedId();
         $category = new Category();
-        $category->id = $lastid + 1;
         $category->category = $request->input('category');
         $category->save();
         return redirect()->back()->with('status', 'Category added successfully!');
@@ -47,11 +45,20 @@ class AdminController extends Controller
 
     public function deleteCat()
     {
-
+        
     }
 
-    public function editCat()
+    public function editCat($id)
     {
+        $cat = Category::find($id);
+        return view('editCat', compact('cat'));
+    }
 
+    public function updateCat(Request $request, $id)
+    {
+        $category = Category::find($id);
+        $category->category = $request->input('category');
+        $category->update();
+        return redirect('/')->with('status', 'Category edited successfully!');
     }
 }
