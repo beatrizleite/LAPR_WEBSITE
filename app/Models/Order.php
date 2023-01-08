@@ -11,7 +11,7 @@ class Order extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    protected $table = 'order';
+    protected $table = 'orders';
     protected $fillable = [
         'firstname',
         'lastname',

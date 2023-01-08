@@ -38,7 +38,9 @@ class CheckoutController extends Controller
                 'item_id' => $item->item_id,
                 'price' => $item->items->price
             ]);
+            Cart::destroy($item->id);
         }
 
+        return redirect('');
     }
 }
