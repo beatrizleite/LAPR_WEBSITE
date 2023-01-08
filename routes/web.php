@@ -25,9 +25,13 @@ Route::get('/', function () {
 });
 
 
-Auth::routes();
+Auth::routes([
+    'verify' => true
+]);
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('logout');
 
