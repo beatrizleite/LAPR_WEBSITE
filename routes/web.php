@@ -60,4 +60,5 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
     Route::get("admin/editCat/{id}", [AdminController::class, 'editCat'])->name('admin.editCat');
     
     Route::put("admin/updateCat/{id}", [AdminController::class, 'updateCat'])->name('admin.updateCat');
+
 });

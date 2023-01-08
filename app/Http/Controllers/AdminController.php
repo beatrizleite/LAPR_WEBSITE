@@ -43,9 +43,11 @@ class AdminController extends Controller
         return redirect()->back()->with('status', 'Category added successfully!');
     }
 
-    public function deleteCat()
+    public function deleteCat($id)
     {
-        
+        $category = Category::find($id);
+        $category->delete();
+        return redirect('admin/allCategories')->with('status', 'Category deleted successfully!');
     }
 
     public function editCat($id)
@@ -59,6 +61,6 @@ class AdminController extends Controller
         $category = Category::find($id);
         $category->category = $request->input('category');
         $category->update();
-        return redirect('/')->with('status', 'Category edited successfully!');
+        return redirect('admin/allCategories')->with('status', 'Category edited successfully!');
     }
 }

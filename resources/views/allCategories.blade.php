@@ -43,7 +43,10 @@
                     <th scope="row">{{ $cat->id }}</th>
                     <td>{{ $cat->category }}</td>
                     <td>
-                    <button class="btn btn-danger">Delete</button>
+                    <form action="{{route('admin.deleteCat', ['id' => $cat->id])}}" method="get">
+                        @csrf
+                        <button class="btn btn-danger">Delete</button>
+                    </form>
                     </td>
                     <form action="{{route('admin.editCat', ['id' => $cat->id])}}" method="get">
                         @csrf
