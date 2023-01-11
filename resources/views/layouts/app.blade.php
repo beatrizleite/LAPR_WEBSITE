@@ -87,9 +87,6 @@ if (Auth::check()) {
                                     data-bs-toggle="dropdown" aria-expanded="false">{{ Auth::user()->name }}</a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li class="nav-link">
-                                        <a href="{{ route('user.home') }}" class="dropdown-item"> Profile</a>
-                                    </li>
-                                    <li class="nav-link">
                                         <a href="{{ route('logout') }}" class="dropdown-item">
                                             Logout
                                         </a>
