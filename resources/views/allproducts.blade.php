@@ -9,6 +9,7 @@
             <div class="container">
                 <div class="row">
                 @foreach ($items as $item)
+                @if($item)
                     <div class="col-sm-4 img-portfolio">
                         <h3>
                             <a href="detail/{{$item['id']}}"><b>{{$item->name}}</b></a>
@@ -17,6 +18,7 @@
                             style="object-fit:fill; width:250px; height:200px; border: solid 1px #CCC">
                         <hr>
                     </div>
+                @endif
                 @endforeach
                 </div>
               </div>

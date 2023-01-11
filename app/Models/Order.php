@@ -13,6 +13,7 @@ class Order extends Authenticatable
 
     protected $table = 'orders';
     protected $fillable = [
+        'userid',
         'firstname',
         'lastname',
         'email',

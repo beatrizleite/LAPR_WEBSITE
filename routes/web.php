@@ -25,6 +25,12 @@ Route::get('/', function () {
 });
 
 
+Route::get("categories", [HomeController::class, 'categories'])->name('categories');
+
+Route::get("categories/{id}", [HomeController::class, 'categoriesid'])->name('categoriesid');
+
+Route::get("allProducts", [HomeController::class, 'allproducts'])->name('allproducts');
+
 Auth::routes([
     'verify' => true
 ]);
@@ -98,10 +104,7 @@ Route::middleware(['auth', 'is_seller'])->group(function () {
 
 Route::get("checkout", [CheckoutController::class, 'index'])->name('checkout');
 
-Route::post("placeOrder", [CheckoutController::class, 'placeOrder'])->name('placeOrder');
+Route::post("checkout/payment", [CheckoutController::class, 'placeOrder'])->name('placeOrder');
 
-Route::get("categories", [HomeController::class, 'categories'])->name('categories');
+Route::post("checkout/payment/pay", [CheckoutController::class, 'pay'])->name('pay');
 
-Route::get("categories/{id}", [HomeController::class, 'categoriesid'])->name('categoriesid');
-
-Route::get("allProducts", [HomeController::class, 'allproducts'])->name('allproducts');

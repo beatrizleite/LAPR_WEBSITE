@@ -25,9 +25,14 @@
                         </div>
                         <div class="card-footer">
                             <h5>Total price: {{$total}}€</h5>
+                            @if ($total == 0)
+                            <input onClick="{{route('checkout')}}" type="button" value="Checkout"
+                            class="btn btn-outline-success" disabled />
+                            @else
                             <a href="{{route('checkout')}}" class="btn btn-outline-success">
                                 Checkout
                             </a>
+                            @endif
                         </div>
                     </div>
                 </div>

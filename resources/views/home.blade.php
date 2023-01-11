@@ -33,21 +33,27 @@
         <div class="carousel-item active" style="background-position: center center;
         background-repeat:no-repeat; background-image:url(./storage/images/cover.png);">
             <div class="container-carousel" style="margin-left:15%;">
-                <h1>{{$categories[0]->category}}</h1>
+                <a href="{{route('categoriesid', $categories[2]->id)}}">
+                    <h1>{{$categories[0]->category}}</h1>
+                </a>
                 <p>Check out the items from this category!</p>
             </div>
         </div>
         <div class="carousel-item" style="background-position: center center;
         background-repeat:no-repeat; background-image:url(./storage/images/cover1.png);">
             <div class="container-carousel" style="margin-left:15%;">
-                <h1>{{$categories[1]->category}}</h1>
+                <a href="{{route('categoriesid', $categories[2]->id)}}">
+                    <h1>{{$categories[1]->category}}</h1>
+                </a>
                 <a>Check out the items from this category!</a>
             </div>
         </div>
         <div class="carousel-item" style="background-position: center center;
         background-repeat:no-repeat; background-image:url(./storage/images/cover2.png);">
             <div class="container-carousel" style="margin-left:15%;">
-                <h1>{{$categories[2]->category}}</h1>
+                <a href="{{route('categoriesid', $categories[2]->id)}}">
+                    <h1>{{$categories[2]->category}}</h1>
+                </a>
                 <a>Check out the items from this category!</a>
             </div>
         </div>
