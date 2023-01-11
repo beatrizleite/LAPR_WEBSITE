@@ -118,7 +118,7 @@ if (Auth::check()) {
             @endif
             <ul class="navbar-nav" style="margin-left: 50px; margin-right: 50px;">
                 <li class="nav-item">
-                    <a href="#!" class="nav-link">About</a>
+                    <a href="{{route('about')}}" class="nav-link">About</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a href="#" id="navbarDropdown" class="nav-link dropdown-toggle" role="button"
@@ -163,6 +163,7 @@ if (Auth::check()) {
         </div>
         </ul>
     </nav>
+    <p></p>
     <main>
         @yield('content')
     </main>

@@ -53,6 +53,7 @@ Route::post("/addToCart", [ProductController::class, 'addToCart'])->name('addToC
 
 Route::get("/removeFromCart/{id}", [ProductController::class, 'removeFromCart'])->name('remove_cart');
 
+Route::get("/about", [HomeController::class, 'about'])->name('about');
 
 Route::middleware(['auth', 'is_admin'])->group(function () {
     Route::get('admin/home', [HomeController::class, 'adminHome'])->name('admin.home');
