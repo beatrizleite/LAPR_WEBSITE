@@ -42,6 +42,7 @@
         </div>
     </div>
     <table class="table table-striped">
+        <caption>All Users table</caption>
         <thead>
             <tr>
                 <th scope="col">#</th>

@@ -46,6 +46,7 @@
     </div>
 
     <table class="table table-striped">
+        <caption>All items table</caption>
         <thead>
             <tr>
                 <th scope="col">#</th>

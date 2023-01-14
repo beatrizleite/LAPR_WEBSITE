@@ -52,6 +52,7 @@
                             <h6>Order details</h6>
                             <hr>
                             <table class="table table-striped">
+                                <caption>Cart items table</caption>
                                 <thead>
                                     <tr>
                                         <th>Name</th>

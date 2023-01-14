@@ -29,6 +29,7 @@
 
     <hr>
     <table class="table table-striped">
+        <caption>Categories table</caption>
         <thead>
             <tr>
                 <th scope="col">#</th>
