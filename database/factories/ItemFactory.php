@@ -3,8 +3,6 @@
 namespace Database\Factories;
 
 use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
-use App\Http\Middleware\IsSeller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -20,7 +18,8 @@ class ItemFactory extends Factory
      */
     public function definition()
     {
-        $names = Arr::random(array('TV', 'Phone', 'Laptop', 'Monitor', 'Watch', 'Mouse', 'Portable Gaming', 'Keyboard'));
+        $names = Arr::random(array('TV', 'Phone', 'Laptop',
+        'Monitor', 'Watch', 'Mouse', 'Portable Gaming', 'Keyboard'));
         $category = DB::table('categories')
                 ->inRandomOrder()
                 ->limit(1)

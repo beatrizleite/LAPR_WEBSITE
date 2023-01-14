@@ -49,7 +49,7 @@ class CheckoutController extends Controller
 
         $total = 0;
         $cartitems = Cart::where('user_id', '=', Auth::id())->get();
-        foreach ($cartitems as $item){
+        foreach ($cartitems as $item) {
             $total += $item->items->price;
         }
 
