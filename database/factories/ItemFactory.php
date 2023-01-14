@@ -34,7 +34,7 @@ class ItemFactory extends Factory
             FILTER_SANITIZE_NUMBER_INT
         );
         $image = Arr::random(array('1.jpg', '2.jpg', '3.jpg', '4.jpg'));
-        $price = mt_rand(0, 2000 * pow(10, 2)) / pow(10, 2);
+        $price = random_int(0, 2000 * pow(10, 2)) / pow(10, 2);
         return [
             'name' =>  $names,
             'category' => $category,

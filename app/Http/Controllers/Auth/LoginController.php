@@ -50,13 +50,8 @@ class LoginController extends Controller
         ]);
 
         if (auth()->attempt(array('email' => $input['email'], 'password' => $input['password']))) {
-            if (auth()->user()->type == 2) {
-                return redirect()->route('admin.home');
-            } elseif (auth()->user()->type == 1) {
-                return redirect()->route('seller.home');
-            } else {
-                return redirect()->route('home');
-            }
+            return redirect()->route('home')
+            ->with('success', "Successfully logged in!");
         } else {
             return redirect()->route('login')
             ->with('error', "Email and/or password are wrong.");

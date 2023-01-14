@@ -47,7 +47,13 @@ class CheckoutController extends Controller
 
         $order->save();
 
-        return view('payment');
+        $total = 0;
+        $cartitems = Cart::where('user_id', '=', Auth::id())->get();
+        foreach ($cartitems as $item){
+            $total += $item->items->price;
+        }
+
+        return view('payment', compact('total'));
     }
 
     public function pay(Request $request)
