@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use Stripe;
+use Dompdf\Dompdf;
 use App\Models\Cart;
+use App\Models\User;
 use App\Models\Order;
 use App\Models\OrderItem;
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
+use App\Mail\OrderConfirmed;
 use Illuminate\Http\Request;
-use Stripe;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class CheckoutController extends Controller
 {
@@ -114,8 +117,25 @@ class CheckoutController extends Controller
         return redirect('sendMail')->with("Payment success");
     }
 
-    public function sendMail(){
-        redirect('');
+    public function sendMail()
+    {
+        $data["name"] = User::where('id', '=', Auth::id())->value('name');
+        $data["email"] = User::where('id', '=', Auth::id())->value('email');
+        $data["subject"] = 'Order Confirmed';
+        $data["body"] = '<body>Order Confirmed</body>';
+
+        $dompdf = new Dompdf();
+        $html = "<p><h1>thank you ".$data["name"]."!</h1></p>
+        <p>Your order was received!</p>";
+        $dompdf->loadHtml($html);
+        $dompdf->render();
+
+        $pdf = $dompdf->output();
+        $data["pdf"] = "OrderConfirmed.pdf";
+        file_put_contents('OrderConfirmed.pdf', $pdf);
+        Mail::to($data["email"])->send(new OrderConfirmed($data["name"], $data["pdf"]));
+
+        return redirect('')->with("Email sent");
     }
 
 }
