@@ -79,6 +79,12 @@ return [
             'sslmode' => 'prefer',
         ],
 
+        'pgsql_testing' => [
+            'driver'   => 'pgsql',
+            'database' => database_path('testing.pgsql'),
+            'prefix'   => '',
+        ],
+
         'sqlsrv' => [
             'driver' => 'sqlsrv',
             'url' => env('DATABASE_URL'),
