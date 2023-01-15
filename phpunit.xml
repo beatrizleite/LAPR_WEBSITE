@@ -15,6 +15,7 @@
     <coverage processUncoveredFiles="true">
         <include>
             <directory suffix=".php">./app</directory>
+            <directory prefix=".php-cs-fixer.">.</directory>
         </include>
     </coverage>
     <php>
