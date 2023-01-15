@@ -1,12 +1,18 @@
 <?php
 
+use Dompdf\Dompdf;
+use App\Models\User;
+use App\Models\Order;
+use App\Models\OrderItem;
+use App\Mail\OrderConfirmed;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\SellerController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CheckoutController;
 
 /*
 |--------------------------------------------------------------------------
@@ -103,9 +109,36 @@ Route::middleware(['auth', 'is_seller'])->group(function () {
 
 });
 
-Route::get("checkout", [CheckoutController::class, 'index'])->name('checkout');
+Route::group(array('before' => 'auth'), function () {
+    Route::get("checkout", [CheckoutController::class, 'index'])->name('checkout');
 
-Route::post("checkout/payment", [CheckoutController::class, 'placeOrder'])->name('placeOrder');
+    Route::post("checkout/payment", [CheckoutController::class, 'placeOrder'])->name('placeOrder');
 
-Route::post("checkout/payment/pay", [CheckoutController::class, 'pay'])->name('pay');
+    Route::get("sendMail", function () {
+
+        $data["name"] = User::where('id', '=', Auth::id())->value('name');
+        $data["email"] = User::where('id', '=', Auth::id())->value('email');
+        $data["subject"] = 'Order Confirmed';
+        $data["body"] = '<body>Order Confirmed</body>';
+
+        $dompdf = new Dompdf();
+        $html = "<p><h1>thank you ".$data["name"]."!</h1></p>
+        <p>Your order was received!</p>";
+        $dompdf->loadHtml($html);
+        $dompdf->render();
+
+        $pdf = $dompdf->output();
+        $data["pdf"] = "OrderConfirmed.pdf";
+        file_put_contents('OrderConfirmed.pdf', $pdf);
+            /*Mail::send([], $data, function ($message) use ($data, $pdf) {
+                $message->to($data["email"], $data["name"])
+                    ->subject($data["subject"])
+                    ->
+                    ->attachData($pdf, 'OrderConfirmed.pdf');
+            }
+            );*/
+        Mail::to($data["email"])->send(new OrderConfirmed($data["name"], $data["pdf"]));
+    }
+    )->name('sendMail');
+});
 

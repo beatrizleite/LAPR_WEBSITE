@@ -13,6 +13,9 @@ use Stripe;
 class CheckoutController extends Controller
 {
     public $orderid;
+
+    public $data;
+
     protected $rules = [
         'firstname' => 'required',
         'lastname' => 'required',
@@ -32,52 +35,33 @@ class CheckoutController extends Controller
     {
 
         $email = User::where('id', '=', Auth::id())->value('email');
+        $name = User::where('id', '=', Auth::id())->value('name');
 
-        $order = new Order();
 
-        $order->userid = Auth::id();
-        $order->firstname = $request->input('firstname');
-        $order->lastname = $request->input('lastname');
-        $order->email = $email;
-        $order->phone = $request->input('phone');
-        $order->address = $request->input('address');
-        $order->city = $request->input('city');
-        $order->country = $request->input('country');
-        $order->postcode = $request->input('postcode');
-
-        $order->save();
-
+        $data["userid"] = Auth::id();
+        $data["firstname"] = $request->input('firstname');
+        $data["lastname"] = $request->input('lastname');
+        $data["email"] = $email;
+        $data["phone"] = $request->input('phone');
+        $data["address"] = $request->input('address');
+        $data["city"] = $request->input('city');
+        $data["country"] = $request->input('country');
+        $data["postcode"] = $request->input('postcode');
+        
         $total = 0;
         $cartitems = Cart::where('user_id', '=', Auth::id())->get();
         foreach ($cartitems as $item){
             $total += $item->items->price;
         }
 
-        return view('payment', compact('total'));
-    }
-
-    public function pay(Request $request)
-    {
-
         Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
         
-        $total = 0;
-        $email = User::where('id', '=', Auth::id())->value('email');
-        $name = User::where('id', '=', Auth::id())->value('name');
-
-        $cartitems = Cart::where('user_id', '=', Auth::id())->get();
-        foreach ($cartitems as $item) {
-            $total += $item->items->price;
-        }
-
-        $order = Order::where('userid', '=', Auth::id())->latest()->first();
-
         $customer = Stripe\Customer::create(array(
             'address' => [
-                'line1' => $order->address,
-                'postal_code' => $order->postcode,
-                'city' => $order->city,
-                'country' => $order->country,
+                'line1' => $data["address"],
+                'postal_code' => $data["postcode"],
+                'city' => $data["city"],
+                'country' => $data["country"],
             ],
             "email" => $email,
             "name" => $name,
@@ -92,16 +76,32 @@ class CheckoutController extends Controller
             "customer" => $customer->id,
             "description" => "payment to E-commerce",
             'shipping' => [
-                'name' => $order->firstname . ' ' . $order->lastname,
+                'name' => $data["firstname"] . ' ' . $data["lastname"],
                 'address' => [
-                    'line1' => $order->address,
-                    'postal_code' => $order->postcode,
-                    'city' => $order->city,
-                    'country' => $order->country,
+                    'line1' => $data["address"],
+                    'postal_code' => $data["postcode"],
+                    'city' => $data["city"],
+                    'country' => $data["country"],
                 ],
             ],
 
         ]);
+
+
+        $order = new Order();
+
+        $order->userid = $data["userid"];
+        $order->firstname = $data["firstname"];
+        $order->lastname = $data["lastname"];
+        $order->email = $email;
+        $order->phone = $data["phone"];
+        $order->address = $data["address"];
+        $order->city = $data["city"];
+        $order->country = $data["country"];
+        $order->postcode = $data["postcode"];
+
+        $order->save();
+
         foreach ($cartitems as $item) {
             OrderItem::create([
                 'order_id' => $order->id,
@@ -110,7 +110,12 @@ class CheckoutController extends Controller
             ]);
             Cart::destroy($item->id);
         }
-        return redirect('')->with("Payment success");
 
+        return redirect('sendMail')->with("Payment success");
     }
+
+    public function sendMail(){
+        redirect('');
+    }
+
 }

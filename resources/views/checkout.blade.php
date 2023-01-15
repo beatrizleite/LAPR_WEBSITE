@@ -74,7 +74,13 @@
                                 </tbody>
                             </table>
                             <hr>
-                            <button type="submit" class="btn btn-outline-success">Proceed to payment</button>
+                            <button type="submit" class="btn btn-outline-success">
+                                <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                data-key="{{ env('STRIPE_KEY') }}"
+                                data-name="Payment of {{ $total }}€" data-amount="{{ $total * 100 }}"
+                                data-currency="EUR"
+                                data-description="Insert your card information"></script>
+                            </button>
                         </div>
                     </div>
                 </div>
