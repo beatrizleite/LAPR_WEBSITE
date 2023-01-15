@@ -2,7 +2,7 @@ name: Build
 on:
   push:
    branches:
-    - master
+    - main
 jobs:
   tests:
     name: PHPUnit
@@ -24,6 +24,8 @@ jobs:
             ${{ runner.os }}-php-
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress
+      - name: Fix code coverage paths
+        run: sed -i 's@'$GITHUB_WORKSPACE'@/github/workspace/@g' coverage.xml
       - name: Run tests
         run: ./vendor/bin/phpunit --verbose tests
   sonarcloud:
