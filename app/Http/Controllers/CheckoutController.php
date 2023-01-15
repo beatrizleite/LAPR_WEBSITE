@@ -125,7 +125,7 @@ class CheckoutController extends Controller
         $data["body"] = '<body>Order Confirmed</body>';
 
         $dompdf = new Dompdf();
-        $html = "<p><h1>thank you ".$data["name"]."!</h1></p>
+        $html = "<p><h1>Thank you ".$data["name"]."!</h1></p>
         <p>Your order was received!</p>";
         $dompdf->loadHtml($html);
         $dompdf->render();
